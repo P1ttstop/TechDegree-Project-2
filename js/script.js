@@ -16,7 +16,8 @@ FSJS project 2 - List Filter and Pagination
    will only be used inside of a function, then it can be locally 
    scoped to that function.
 ***/
-
+const studentItems = document.querySelectorAll('.student-item');
+const itemsPerPage = 10;
 
 
 
@@ -34,17 +35,44 @@ FSJS project 2 - List Filter and Pagination
        that will be passed into the parens later when you call or 
        "invoke" the function 
 ***/
-
-
-
+const showPage = (list, page) => {
+   let startIndex = (page * itemsPerPage ) - itemsPerPage;
+   let endIndex = page * itemsPerPage;
+   for(let i = 0; i >= startIndex && i <= endIndex; i++) {
+      list[i];
+   }
+}
 
 /*** 
    Create the `appendPageLinks function` to generate, append, and add 
    functionality to the pagination buttons.
 ***/
+const appendPageLinks = (list) => {
+   let pagination = document.querySelector('.pagination')
+   let div = createElement('div');
+   pagination.appendChild(div);
+   div.className = 'page'
+   let ul = document.createElement('ul');
+   div.appendChild(ul);
+   for(let i = 1; i < itemsPerPage; i++) {
+      let li = document.createElement('li');
+      let a = document.createElement('a');
+      li.appendChild('a');
+      a.setAttribute("href", '#');
+      a.textContent = i;
+      if(i === 1) {
+         a.className = 'active';
+      }
+      a.addEventListener('click', (e) => {
+         a.classList.remove("active");
+         if(e.target.tagName === "A") {
+            a.setAttribute('class', 'active');
+         }
+      });
+   }
+}
 
-
-
-
+showPage(studentItems, 1);
+appendPageLinks(studentItems);
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
