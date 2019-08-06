@@ -31,14 +31,34 @@ const showPage = (list, page) => {
    functionality to the pagination buttons.
 ***/
 const appendPageLinks = (list) => {
-   let pagination = document.createElement('div');
-   let page = document.createElement('div');
+   const numOfPages = Math.floor(list.length/itemsPerPage);
+   const pagination = document.createElement('div');
+   const page = document.createElement('div');
    page.className = "page";
    pagination.className = "pagination";
    pagination.appendChild(page);
-   let ul = document.createElement('ul');
-   let li = document.createElement('li');
-   ul.appendChild(li);
+   const ul = document.createElement('ul');
+   page.appendChild(ul);
+
+   for(let i = 1; i < numOfPages; i++) {
+      const li = document.createElement('li');
+      ul.appendChild(li);
+      const a = document.createElement('a');
+      li.appendChild(a);
+      a.setAttribute('href', '#');
+      a.textContent = i;
+      if(i === 1) {
+         a.className = 'active';
+      }
+      a.addEventListener('click', (e) => {
+         if(e.target.className === "active") {
+            a.className = '';
+         }
+         const active = e.target;
+         active.className = "active";
+         showPage(list,parseInt(active.textContent));
+      });
+   }
 }
 
 showPage(studentItems, 1);
